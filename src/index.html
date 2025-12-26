@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Image Slicer</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		#canvas-container {
+			position: relative;
+			display: inline-block;
+			max-width: calc(100vw - 40px);
+			max-height: calc(100vh - 200px);
+			overflow: auto;
+			min-width: 300px;
+			min-height: 300px;
+			border: 2px dashed #dee2e6;
+			background: #f8f9fa;
+		}
+
+		#canvas-container.has-image {
+			border: none;
+			background: transparent;
+		}
+
+		#canvas-container.drag-over {
+			border-color: #0d6efd;
+			background: rgba(13, 110, 253, 0.05);
+		}
+
+		#drop-zone {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			color: #6c757d;
+			pointer-events: none;
+		}
+
+		#drop-zone.hidden {
+			display: none;
+		}
+
+		#image-canvas {
+			cursor: crosshair;
+			display: none;
+			max-width: 100%;
+			max-height: calc(100vh - 200px);
+			width: auto;
+			height: auto;
+			object-fit: contain;
+		}
+
+		#canvas-container.has-image #image-canvas {
+			display: block;
+		}
+
+		#selection-box {
+			position: absolute;
+			border: 2px solid #0d6efd;
+			background: rgba(13, 110, 253, 0.1);
+			cursor: move;
+			display: none;
+		}
+
+		#file-input {
+			display: none;
+		}
+	</style>
+</head>
+
+<body class="p-2 p-md-3 p-lg-4">
+	<div class="container">
+		<h1 class="mb-4">Image Slicer</h1>
+
+		<input type="file" id="file-input" accept="image/*">
+
+		<div class="controls mb-3">
+			<div class="row g-2 align-items-center">
+				<div class="col-auto">
+					<button id="open-btn" class="btn btn-secondary">Open</button>
+				</div>
+				<div class="col-auto">
+					<label for="size-selector" class="form-label me-2 mb-0">Size:</label>
+				</div>
+				<div class="col-auto">
+					<select id="size-selector" class="form-select form-select-sm">
+						<option value="256">256</option>
+						<option value="512" selected>512</option>
+						<option value="1024">1024</option>
+					</select>
+				</div>
+				<div class="col-auto">
+					<button id="save-btn" class="btn btn-primary btn-sm" disabled>Save</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="canvas-container">
+			<div id="drop-zone">
+				<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-image mb-3"
+					 viewBox="0 0 16 16">
+					<path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+					<path
+						  d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
+				</svg>
+				<p class="mb-0">Drop image here or click to open</p>
+			</div>
+			<canvas id="image-canvas"></canvas>
+			<div id="selection-box"></div>
+		</div>
+	</div>
+</body>
+
+</html>

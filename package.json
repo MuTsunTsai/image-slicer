@@ -1,0 +1,19 @@
+{
+	"name": "image-slicer",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "rsbuild dev",
+		"build": "rsbuild build",
+		"preview": "rsbuild preview"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"packageManager": "pnpm@10.13.1",
+	"devDependencies": {
+		"@rsbuild/core": "^1.6.15",
+		"typescript": "^5.9.3"
+	}
+}
